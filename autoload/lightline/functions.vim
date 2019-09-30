@@ -1,12 +1,12 @@
-function! lightline#functions#filetype#devicons()
+function! lightline#functions#filetype_devicons()
   return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
 endfunction
 
-function! lightline#functions#fileformat#devicons()
+function! lightline#functions#fileformat_devicons()
   return winwidth(0) > 70 ? (&fileformat . ' ' . WebDevIconsGetFileFormatSymbol()) : ''
 endfunction
 
-function! lightline#functions#gitinfo#coc() abort
+function! lightline#functions#gitinfo_coc() abort
     if &filetype ==? 'vista'
         return ""
     endif
@@ -24,7 +24,7 @@ function! lightline#functions#gitinfo#coc() abort
     return trim(join(gitinfo,''))
 endfunction
 
-function! lightline#functions#gitblame#coc() abort
+function! lightline#functions#gitblame_coc() abort
   let blame = get(b:, 'coc_git_blame', '')
   let blame_length = winwidth(0) - 65
   if strlen(blame) < winwidth(0) - 65
@@ -33,7 +33,7 @@ function! lightline#functions#gitblame#coc() abort
   return winwidth(0) > 90 ? blame[:blame_length] . '...' : ''
 endfunction
 
-function! lightline#functions#method#vista() abort
+function! lightline#functions#method_vista() abort
   return get(b:, 'vista_nearest_method_or_function', '')
 endfunction
 
