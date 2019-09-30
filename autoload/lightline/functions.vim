@@ -39,7 +39,7 @@ endfunction
 
 function! lightline#functions#filename() abort
     let filename = winwidth(0) > 70 ? expand('%') : expand('%:t')
-    if filename =~ 'NERD_tree'
+    if filename =~ 'NERD_tree_1'
         return ''
     endif
     let modified = &modified ? ' +' : ''
@@ -48,7 +48,7 @@ endfunction
 
 function! lightline#functions#lineinfo() abort
     return &filetype ==? 'help'             ? ''  :
-    \      &filetype ==? 'defx'             ? ' ' :
+    \      &filetype ==? 'nerdtree'         ? ' ' :
     \      &filetype ==? 'vista_kind'       ? ' ' :
     \      &filetype ==? 'vista'            ? ' ' :
     \      printf(' %d%% ☰ %d:%d', 100*line('.')/line('$'),  line('.'), col('.'))
@@ -62,4 +62,10 @@ function! lightline#functions#readonly()
     else
         return ""
     endif
+endfunction
+
+function! lightline#functions#reload()
+  call lightline#init()
+  call lightline#colorscheme()
+  call lightline#update()
 endfunction
