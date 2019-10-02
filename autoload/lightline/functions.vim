@@ -1,14 +1,14 @@
 scriptencoding utf-8
 
 " https://github.com/josa42/vim-lightline-sensible/blob/master/autoload/lightline/sensible.vim
-function! s:lightline#functions#isHidden()
+function! lightline#functions#isHidden()
   let filetypes = ['nerdtree', 'startify', 'list', 'help', 'fugitive', 'fugitiveblame', 'qf', 'git']
   let filenames = ['[Plugins]', '__vista__', 'startify', 'NERDTree', 'Tagbar', 'Gundo']
   return index(filetypes, &filetype) != -1 || index(filenames, expand('%:t')) != -1
 endfunction
 
 function! lightline#functions#mode()
-  return s:lightline#functions#isHidden() ? '': lightline#mode()
+  return lightline#functions#isHidden() ? '': lightline#mode()
 endfunction
 
 function! lightline#functions#filetype_devicons()
@@ -20,7 +20,7 @@ function! lightline#functions#fileformat_devicons()
 endfunction
 
 function! lightline#functions#gitinfo_coc() abort
-    if s:lightline#functions#isHidden()
+    if lightline#functions#isHidden()
       return ''
     endif
     let gitbranch=get(g:, 'coc_git_status', '')
@@ -51,7 +51,7 @@ function! lightline#functions#method_vista() abort
 endfunction
 
 function! lightline#functions#filename() abort
-  if s:lightline#functions#isHidden()
+  if lightline#functions#isHidden()
     return ''
   endif
   let filename = winwidth(0) > 70 ? expand('%') : expand('%:t')
@@ -68,7 +68,7 @@ function! lightline#functions#lineinfo() abort
 endfunction
 
 function! lightline#functions#readonly()
-  if s:lightline#functions#isHidden()
+  if lightline#functions#isHidden()
     return ''
   elseif &readonly
     return ""
