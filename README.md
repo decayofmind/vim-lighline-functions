@@ -38,4 +38,5 @@ then it's indicated in it's name.
 
 Projects/files which inspired me
 
+* https://github.com/itchyny/lightline-powerful
 * https://github.com/josa42/vim-lightline-sensible

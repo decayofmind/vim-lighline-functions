@@ -13,7 +13,7 @@ function! lightline#functions#fileencoding()
 endfunction
 
 function! lightline#functions#fileformat_devicons()
-  return winwidth(0) > 70 ? (&fileformat . ' ' . WebDevIconsGetFileFormatSymbol()) : ''
+  return lightline#functions#isHidden() ? '' : winwidth(0) > 70 ? (&fileformat . ' ' . WebDevIconsGetFileFormatSymbol()) : ''
 endfunction
 
 function! lightline#functions#filename() abort
