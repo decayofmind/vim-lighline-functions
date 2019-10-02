@@ -15,17 +15,24 @@ ___I've created this repository mainly to reduce mine NeoVim config.___
 
 ```viml
   let g:lightline.component_function = {
-      \   'filetype': 'lightline#functions#filetype_devicons',
+      \   'cocstatus': 'coc#status',
+      \   'fileencoding': 'lightline#functions#fileencoding',
       \   'fileformat': 'lightline#functionsfileformat_devicons',
       \   'filename': 'lightline#functions#filename',
-      \   'cocstatus': 'coc#status',
-      \   'method': 'lightline#functions#method_vista',
-      \   'lineinfo': 'lightline#functions#lineinfo',
-      \   'readonly': 'lightline#functions#readonly',
+      \   'filetype': 'lightline#functions#filetype_devicons',
       \   'gitinfo': 'lightline#functions#gitinfo_coc',
       \   'gitblame': 'lightline#functions#gitblame_coc',
-    \ }
+      \   'lineinfo': 'lightline#functions#lineinfo',
+      \   'method': 'lightline#functions#method_vista',
+      \   'mode': 'lightline#functions#mode',
+      \   'readonly': 'lightline#functions#readonly',
+      \ }
 ```
+
+## Functions
+
+Notice, that if function is dependant on some other plugin (like coc.nvim or vim-devicons),
+then it's indicated in it's name.
 
 ## Credits
 
