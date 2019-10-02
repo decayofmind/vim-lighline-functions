@@ -2,7 +2,7 @@ scriptencoding utf-8
 
 " https://github.com/josa42/vim-lightline-sensible/blob/master/autoload/lightline/sensible.vim
 function! lightline#functions#isHidden()
-  let filetypes = ['nerdtree', 'startify', 'list', 'help', 'fugitive', 'fugitiveblame', 'qf', 'git']
+  let filetypes = ['nerdtree', 'startify', 'list', 'help', 'fugitive', 'fugitiveblame', 'qf', 'git', 'vim-plug']
   let filenames = ['[Plugins]', '__vista__', 'startify', 'NERDTree', 'Tagbar', 'Gundo']
   return index(filetypes, &filetype) != -1 || index(filenames, expand('%:t')) != -1
 endfunction
@@ -26,6 +26,9 @@ function! lightline#functions#filename() abort
 endfunction
 
 function! lightline#functions#filetype_devicons()
+  if lightline#functions#isHidden()
+    return ''
+  endif
   return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
 endfunction
 
@@ -59,6 +62,7 @@ endfunction
 function! lightline#functions#lineinfo() abort
     return &filetype ==? 'help'             ? ''  :
     \      &filetype ==? 'nerdtree'         ? ' ' :
+    \      &filetype ==? 'vim-plug'         ? ' ' :
     \      &filetype ==? 'vista_kind'       ? ' ' :
     \      &filetype ==? 'vista'            ? ' ' :
     \      printf(' %d%% ☰ %d:%d', 100*line('.')/line('$'),  line('.'), col('.'))
