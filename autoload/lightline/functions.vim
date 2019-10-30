@@ -2,9 +2,10 @@ scriptencoding utf-8
 
 " https://github.com/josa42/vim-lightline-sensible/blob/master/autoload/lightline/sensible.vim
 function! lightline#functions#isHidden()
+  let buftypes = ['terminal']
   let filetypes = ['nerdtree', 'startify', 'list', 'help', 'fugitive', 'fugitiveblame', 'qf', 'git', 'vim-plug']
   let filenames = ['[Plugins]', '__vista__', 'startify', 'NERDTree', 'Tagbar', 'Gundo']
-  return index(filetypes, &filetype) != -1 || index(filenames, expand('%:t')) != -1
+  return index(buftypes, &buftype) != -1 || index(filetypes, &filetype) != -1 || index(filenames, expand('%:t')) != -1
 endfunction
 
 " https://github.com/josa42/vim-lightline-sensible/blob/master/autoload/lightline/sensible.vim
@@ -65,6 +66,7 @@ function! lightline#functions#lineinfo() abort
     \      &filetype ==? 'vim-plug'         ? ' ' :
     \      &filetype ==? 'vista_kind'       ? ' ' :
     \      &filetype ==? 'vista'            ? ' ' :
+    \      &buftype  ==? 'terminal'         ? ' ' :
     \      printf(' %d%% ☰ %d:%d', 100*line('.')/line('$'),  line('.'), col('.'))
 endfunction
 
