@@ -1,28 +1,32 @@
 scriptencoding utf-8
 
+function! s:is_terminal() abort
+  return &buftype ==# 'terminal'
+endfunction
+
 " https://github.com/josa42/vim-lightline-sensible/blob/master/autoload/lightline/sensible.vim
-function! lightline#functions#isHidden()
+function! s:is_hidden()
   let buftypes = ['terminal']
   let filetypes = ['nerdtree', 'startify', 'list', 'help', 'fugitive', 'fugitiveblame', 'qf', 'git', 'vim-plug']
   let filenames = ['[Plugins]', '__vista__', 'startify', 'NERDTree', 'Tagbar', 'Gundo']
-  return index(buftypes, &buftype) != -1 || index(filetypes, &filetype) != -1 || index(filenames, expand('%:t')) != -1
+  return  s:is_terminal() || index(filetypes, &filetype) != -1 || index(filenames, expand('%:t')) != -1
 endfunction
 
 " https://github.com/josa42/vim-lightline-sensible/blob/master/autoload/lightline/sensible.vim
 function! lightline#functions#fileencoding()
-  return lightline#functions#isHidden() ? '': (&fenc !=# '' ? &fenc : &enc)
+  return s:is_hidden() ? '': (&fenc !=# '' ? &fenc : &enc)
 endfunction
 
 function! lightline#functions#fileformat_devicons()
-  return lightline#functions#isHidden() ? '' : winwidth(0) > 70 ? (&fileformat . ' ' . WebDevIconsGetFileFormatSymbol()) : ''
+  return s:is_hidden() ? '' : winwidth(0) > 70 ? (&fileformat . ' ' . WebDevIconsGetFileFormatSymbol()) : ''
 endfunction
 
 function! lightline#functions#filename() abort
-  if &buftype ==# 'terminal'
+  if s:is_terminal()
     let cmd = substitute(expand('%'), '^!', '', '')
     return fnamemodify(cmd, ':t')
   endif
-  if lightline#functions#isHidden()
+  if s:is_hidden()
     return ''
   endif
   let filename = winwidth(0) > 70 ? expand('%') : expand('%:t')
@@ -31,7 +35,7 @@ function! lightline#functions#filename() abort
 endfunction
 
 function! lightline#functions#filetype_devicons()
-  if lightline#functions#isHidden()
+  if s:is_hidden()
     return ''
   endif
   return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
@@ -47,7 +51,7 @@ function! lightline#functions#gitblame_coc() abort
 endfunction
 
 function! lightline#functions#gitinfo_coc() abort
-    if lightline#functions#isHidden()
+    if s:is_hidden()
       return ''
     endif
     let gitbranch=get(g:, 'coc_git_status', '')
@@ -80,11 +84,14 @@ endfunction
 
 " https://github.com/josa42/vim-lightline-sensible/blob/master/autoload/lightline/sensible.vim
 function! lightline#functions#mode()
-  return lightline#functions#isHidden() ? '': lightline#mode()
+  if s:is_terminal()
+    return lightline#mode()
+  endif
+  return s:is_hidden() ? '': lightline#mode()
 endfunction
 
 function! lightline#functions#readonly()
-  if lightline#functions#isHidden()
+  if s:is_hidden()
     return ''
   elseif &readonly
     return ""
