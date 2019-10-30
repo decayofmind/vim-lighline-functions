@@ -18,6 +18,9 @@ function! lightline#functions#fileformat_devicons()
 endfunction
 
 function! lightline#functions#filename() abort
+  if &buftype ==# 'terminal'
+    let cmd = substitute(expand('%'), '^!', '', '')
+    return fnamemodify(cmd, ':t')
   if lightline#functions#isHidden()
     return ''
   endif
